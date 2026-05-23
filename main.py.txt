@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+import json
+import os
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+
+print("=" * 60)
+print("🤖 YouTube Automation Started!")
+print("=" * 60)
+
+try:
+    with open("credentials.json") as f:
+        credentials_info = json.load(f)
+    
+    credentials = service_account.Credentials.from_service_account_info(
+        credentials_info,
+        scopes=['https://www.googleapis.com/auth/youtube']
+    )
+    
+    youtube = build('youtube', 'v3', credentials=credentials)
+    
+    print("✅ YouTube API Connected Successfully!")
+    print("✅ Ready for Video Upload!")
+    print("=" * 60)
+    
+except Exception as e:
+    print(f"❌ Error: {str(e)}")
+    print("Make sure credentials.json is in the same folder")
